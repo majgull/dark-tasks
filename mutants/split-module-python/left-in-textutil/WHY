@@ -1,0 +1,1 @@
+remove them from textutil.py (which keeps exactly slug, title_words, truncate)

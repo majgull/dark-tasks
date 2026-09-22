@@ -1,0 +1,1 @@
+returns the UTC calendar day of a timestamp in microseconds as `"YYYY-MM-DD"` (UTC, never the local timezone)

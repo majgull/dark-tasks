@@ -1,0 +1,6 @@
+id = "intervals-go"
+title = "intervals-go: make the failing interval-merge tests pass"
+class = "repair"
+lang = "go"
+may_edit = ["intervals.go"]
+spec = """`go test ./...` fails in `intervals_test.go`. Fix `Merge` in `intervals.go` so every test passes. The doc comment on `Merge` is the contract; implement exactly that, including the part about the input order and the input not being modified. Do not edit `intervals_test.go` or add files; `go vet` and `.factory/verify.sh` must be green."""

@@ -1,0 +1,1 @@
+The first `=` of a line splits key and value, so `MESSAGE=x=y` has the value `x=y`

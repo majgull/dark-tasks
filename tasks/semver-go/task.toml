@@ -1,0 +1,16 @@
+id = "semver-go"
+title = "semver-go: semantic-version precedence from the written rules"
+class = "additive"
+lang = "go"
+may_edit = []
+spec = """Add a new file `semver.go` in package main with:
+
+    func CompareSemver(a, b string) (int, error)
+
+It returns -1, 0 or 1 when a has lower, equal or higher precedence than b under Semantic Versioning 2.0.0, and a non-nil error when either input is not a valid version. Also add `semver_test.go` with `go test` tests. Do not change main.go or any other existing file; `go vet` and `go test ./...` must stay green.
+
+A valid version is MAJOR.MINOR.PATCH, optionally followed by `-` and a pre-release, optionally followed by `+` and build metadata. MAJOR, MINOR and PATCH are non-negative integers without leading zeros. A pre-release is one or more dot-separated identifiers, each non-empty and made of ASCII letters, digits and hyphens; a purely numeric pre-release identifier must not have leading zeros. Build metadata is one or more dot-separated identifiers of ASCII letters, digits and hyphens.
+
+Precedence: compare MAJOR, then MINOR, then PATCH numerically. If those are equal, a version without a pre-release has higher precedence than one with a pre-release. Two pre-releases are compared identifier by identifier from the left: identifiers that are both numeric compare numerically; a numeric identifier has lower precedence than an alphanumeric one; two alphanumeric identifiers compare in ASCII order; when every compared identifier is equal, the pre-release with fewer identifiers has lower precedence. Build metadata never affects precedence: 1.0.0+build1 and 1.0.0+build2 are equal.
+
+So: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0 < 1.0.1 < 1.1.0 < 2.0.0. Invalid, for example: "1.0", "a.b.c", "", "1.0.0-", "01.0.0", "1.0.0-01", "1..0"."""

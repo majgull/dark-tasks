@@ -1,0 +1,10 @@
+id = "smoke-chain-a"
+title = "smoke-chain-a: the first step of the pair the smoke suite runs"
+class = "additive"
+lang = "python"
+may_edit = []
+spec = """Add a script `hello.py` at the repo root. Running `python3 hello.py` must print exactly one line to stdout:
+
+hello, dark
+
+and exit with status 0. The file is new; do not change any existing file."""

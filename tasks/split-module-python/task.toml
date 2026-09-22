@@ -1,0 +1,6 @@
+id = "split-module-python"
+title = "split-module-python: move the number helpers into their own module"
+class = "mechanical"
+lang = "python"
+may_edit = ["textutil.py", "app.py", "test_textutil.py"]
+spec = """`textutil.py` mixes string helpers (`slug`, `title_words`, `truncate`) with number helpers (`clamp`, `mean`, `percent`). Create `numutil.py` containing exactly the three number helpers (`clamp`, `mean`, `percent`) with their code moved unchanged, remove them from `textutil.py` (which keeps exactly `slug`, `title_words`, `truncate`), and update `app.py` and `test_textutil.py` so every use of a number helper imports it from `numutil` and every use of a string helper still imports from `textutil`. No behaviour change, no reformatting of the moved code, no other new files. `python3 app.py` must print exactly what it prints today and `.factory/verify.sh` (which runs test_textutil.py) must stay green."""

@@ -1,0 +1,1 @@
+any other argument shape prints `usage: obs.py count FILE` to stderr and exits 2

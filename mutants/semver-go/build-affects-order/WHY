@@ -1,0 +1,1 @@
+Build metadata never affects precedence: 1.0.0+build1 and 1.0.0+build2 are equal

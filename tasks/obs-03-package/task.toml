@@ -1,0 +1,13 @@
+id = "obs-03-package"
+title = "obs-03-package: move the library modules into a package, no behaviour change"
+class = "mechanical"
+lang = "python"
+after = "obs-02-count"
+may_edit = ["journal.py", "counts.py", "obs.py", "test_journal.py", "test_counts.py"]
+spec = """The library modules `journal.py` and `counts.py` sit at the repository root next to the command line `obs.py` and the tests. Move them into a package so the root holds only the entry point and the tests.
+
+Create the package `observer/` with an empty `observer/__init__.py`, `observer/journal.py` holding exactly the current contents of `journal.py`, and `observer/counts.py` holding exactly the current contents of `counts.py` (the code moves unchanged: same functions, same bodies, same docstrings, no reformatting). Delete `journal.py` and `counts.py` from the root. Update `obs.py`, `test_journal.py` and `test_counts.py` so every import of the moved modules goes through the package (`observer.journal`, `observer.counts`), changing nothing else in them.
+
+No behaviour change: `python3 obs.py count FILE` prints exactly what it prints today for every FILE, with the same exit statuses, and `python3 -m unittest test_journal test_counts` stays green. After the change the root holds exactly `obs.py`, `test_journal.py` and `test_counts.py` as `.py` files and `observer/` holds exactly `__init__.py`, `journal.py` and `counts.py`. No other new or changed files. `.factory/verify.sh` must be green.
+
+Scope: this ticket sits on work earlier tickets delivered. A file an earlier ticket delivered is changed only where this specification names it; every other file in the tree stays byte for byte as it is, and a change to one is a failure of this ticket even if the tests still pass."""

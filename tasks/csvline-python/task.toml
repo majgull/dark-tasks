@@ -1,0 +1,6 @@
+id = "csvline-python"
+title = "csvline-python: make the failing test suite pass"
+class = "repair"
+lang = "python"
+may_edit = ["csvline.py"]
+spec = """`python3 -m unittest test_csvline` reports failures. Fix `csvline.py` so the whole suite passes. The docstring in `csvline.py` is the contract for `split_line(line)`; implement exactly that, without the `csv` module. Do not edit `test_csvline.py` or add files; `.factory/verify.sh` must be green."""

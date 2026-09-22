@@ -1,0 +1,149 @@
+__REALTIME_TIMESTAMP=1788134400000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=systemd-journald.service
+SYSLOG_IDENTIFIER=systemd-journald
+PRIORITY=6
+MESSAGE=Journal started
+
+__REALTIME_TIMESTAMP=1788739200000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=sshd.service
+PRIORITY=3
+MESSAGE=error: maximum authentication attempts exceeded for root from 198.51.100.7 port 40022 ssh2
+
+__REALTIME_TIMESTAMP=1788127200000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=sshd.service
+PRIORITY=6
+MESSAGE=Accepted publickey for operator from 192.0.2.10 port 51234 ssh2
+
+__REALTIME_TIMESTAMP=1788135300000000
+_HOSTNAME=obs-host
+_TRANSPORT=kernel
+SYSLOG_IDENTIFIER=kernel
+PRIORITY=4
+MESSAGE=usb 1-2: device descriptor read/64, error -71
+
+__REALTIME_TIMESTAMP=1788145200000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=sshd.service
+_PID=2311
+PRIORITY=6
+MESSAGE=Accepted publickey for operator from 192.0.2.10 port 51240 ssh2
+
+__REALTIME_TIMESTAMP=1788145230123456
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=sshd.service
+_PID=2314
+PRIORITY=3
+MESSAGE=error: kex_exchange_identification: Connection closed by remote host
+
+__REALTIME_TIMESTAMP=1788163200000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=cron.service
+PRIORITY=6
+MESSAGE=(operator) CMD (/usr/bin/backup --nightly)
+
+__REALTIME_TIMESTAMP=1788163500000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=backup.service
+PRIORITY=3
+MESSAGE=rsync: connection unexpectedly closed (0 bytes received so far)
+
+__REALTIME_TIMESTAMP=1788163501000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=backup.service
+PRIORITY=2
+MESSAGE=backup failed: exit status 12
+
+__REALTIME_TIMESTAMP=1788224400000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=audio-observer.service
+PRIORITY=6
+MESSAGE=collector started: 3 sinks, 1 source
+
+__REALTIME_TIMESTAMP=1788224410000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=audio-observer.service
+PRIORITY=6
+MESSAGE=default sink=alsa_output.pci-0000_00_1f.3.analog-stereo volume=0.65
+
+__REALTIME_TIMESTAMP=1788228000000000
+_HOSTNAME=obs-host
+_TRANSPORT=audit
+PRIORITY=abc
+MESSAGE=audit: type=1400 apparmor="DENIED" operation="open"
+
+__REALTIME_TIMESTAMP=1788307199000000
+_HOSTNAME=obs-host
+_TRANSPORT=kernel
+SYSLOG_IDENTIFIER=kernel
+PRIORITY=6
+MESSAGE=EXT4-fs (nvme0n1p2): mounted filesystem with ordered data mode
+
+__REALTIME_TIMESTAMP=1788307200000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=cron.service
+PRIORITY=6
+MESSAGE=(operator) CMD (/usr/bin/backup --nightly)
+
+__REALTIME_TIMESTAMP=1788307201000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=backup.service
+PRIORITY=6
+MESSAGE=backup ok: 1.2G in 43s
+
+__REALTIME_TIMESTAMP=1788350400000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=NetworkManager.service
+PRIORITY=4
+MESSAGE=device (wlan0): supplicant interface state: completed -> disconnected
+
+__REALTIME_TIMESTAMP=1788350402000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=sshd.service
+PRIORITY=3
+MESSAGE=error: PAM: Authentication failure for operator from 192.0.2.10
+
+__REALTIME_TIMESTAMP=1788350402000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=NetworkManager.service
+PRIORITY=3
+MESSAGE=wlan0: link timed out
+
+__REALTIME_TIMESTAMP=1788415200000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=sshd.service
+_PID=2311
+PRIORITY=6
+MESSAGE=Received disconnect from 192.0.2.10 port 51240:11: disconnected by user
+
+__REALTIME_TIMESTAMP=1788415201000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=cron.service
+MESSAGE=(root) CMD (test -x /usr/sbin/anacron || run-parts /etc/cron.hourly)
+
+__REALTIME_TIMESTAMP=1788512400000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=audio-observer.service
+PRIORITY=6
+MESSAGE=weekly report written: /var/lib/audio-observer/2026-W36.md
+
+__REALTIME_TIMESTAMP=1788512401000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=audio-observer.service
+PRIORITY=6
+MESSAGE=config reloaded: interval=
+
+__REALTIME_TIMESTAMP=1788638400999999
+_HOSTNAME=obs-host
+_TRANSPORT=kernel
+SYSLOG_IDENTIFIER=kernel
+PRIORITY=0
+MESSAGE=Kernel panic - not syncing: VFS: Unable to mount root fs
+
+__REALTIME_TIMESTAMP=1788739199000000
+_HOSTNAME=obs-host
+_SYSTEMD_UNIT=sshd.service
+PRIORITY=6
+MESSAGE=Server listening on 0.0.0.0 port 22.

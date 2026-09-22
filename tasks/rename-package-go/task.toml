@@ -1,0 +1,6 @@
+id = "rename-package-go"
+title = "rename-package-go: rename an internal package and update its importers"
+class = "mechanical"
+lang = "go"
+may_edit = ["main.go", "internal/util/util.go", "internal/util/util_test.go"]
+spec = """Rename the package `internal/util` (package name `util`) to `internal/strutil` (package name `strutil`): create `internal/strutil/strutil.go` and `internal/strutil/strutil_test.go` with the content of `internal/util/util.go` and `internal/util/util_test.go`, changed only in the `package` line (`package strutil`); delete both old files (`DELETE: internal/util/util.go`, `DELETE: internal/util/util_test.go`); and update `main.go` so it imports `app/internal/strutil` and refers to the functions as `strutil.Reverse` and `strutil.Initials`. No behaviour change, no reformatting, no other files. `go run .` must print exactly what it prints today and `go vet` plus `.factory/verify.sh` must stay green."""

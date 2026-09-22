@@ -1,0 +1,1 @@
+MEAN is the mean of the values formatted with two decimals (f"{mean:.2f}")

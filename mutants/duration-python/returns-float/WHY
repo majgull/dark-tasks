@@ -1,0 +1,1 @@
+parse_duration(text) -> int: total seconds of a duration string

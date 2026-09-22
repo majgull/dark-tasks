@@ -1,0 +1,6 @@
+id = "errwrap-go"
+title = "errwrap-go: wrap errors with %w so callers can unwrap them"
+class = "mechanical"
+lang = "go"
+may_edit = ["store.go"]
+spec = """`store.go` builds its errors with `fmt.Errorf(\"...: %v\", err)`, which hides the cause from `errors.Is` and `errors.As`. Change every `fmt.Errorf` call in `store.go` that formats an error value with `%v` to use `%w` for that error instead. Change nothing else: the message texts stay byte for byte the same, no new files, no other edits to `store.go`, `store_test.go` or `main.go`. After the change `errors.Is(err, ErrNotFound)` is true for the error `Get` returns for a missing key and `errors.Is(err, fs.ErrNotExist)` is true for the error `Load` returns for a missing file. `go vet` and `.factory/verify.sh` must stay green."""

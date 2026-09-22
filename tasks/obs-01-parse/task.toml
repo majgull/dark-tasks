@@ -1,0 +1,15 @@
+id = "obs-01-parse"
+title = "obs-01-parse: a journal export parser, from an empty repo"
+class = "additive"
+lang = "python"
+spec = """This repository is empty apart from the template. It will grow into `obs`, a small observer that reads systemd journal exports and reports on them. This first step is the parser.
+
+Create `journal.py` (stdlib only) with two functions, and `test_journal.py` (unittest, at least four test methods) covering them:
+
+`parse(text)` parses the text form of the journal export format and returns a list of records in order of appearance. The format: a record is a run of `KEY=VALUE` lines ended by an empty line or by the end of the text; blank lines before the first record, between records and after the last one are ignored, however many. A key matches `[A-Z0-9_]+` (leading underscores are part of the key). The first `=` of a line splits key and value, so `MESSAGE=x=y` has the value `x=y`, and `KEY=` has the value `""`. A `\\r` right before the `\\n` is dropped (CRLF input parses like LF input). Every record must carry `__REALTIME_TIMESTAMP` (decimal digits: microseconds since the epoch) and `MESSAGE`. Each record is returned as a `dict` whose keys are the field names exactly as in the input and whose values are the field strings, except `__REALTIME_TIMESTAMP`, which is converted to `int`. A key repeated inside one record keeps the last value. `parse("")` and text made of blank lines return `[]`.
+
+`parse` raises `ValueError` (the message is free) for: a non-empty line without `=` or whose key does not match `[A-Z0-9_]+` (so `message=a` is an error); a record missing `__REALTIME_TIMESTAMP` or `MESSAGE`; a `__REALTIME_TIMESTAMP` that is not all decimal digits. No other exception type for bad input.
+
+`load(path)` opens the file at `path` as UTF-8 text and returns `parse` of its contents.
+
+No other new files, no dependencies. `.factory/verify.sh` (compiles every `.py` at the root and runs every `test_*.py`) must be green."""

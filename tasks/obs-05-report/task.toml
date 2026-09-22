@@ -1,0 +1,37 @@
+id = "obs-05-report"
+title = "obs-05-report: the weekly markdown report and its command"
+class = "additive"
+lang = "python"
+after = "obs-04-tzfix"
+spec = """The package `observer` has `journal` (records: dicts of field name to string, `__REALTIME_TIMESTAMP` as an int of microseconds since the epoch) and `counts` (`day_of`, `by_unit`, `by_day`, `NO_UNIT = "-"`). Add the weekly report. Three new files, stdlib only:
+
+`observer/report.py` with `week_days(week)` and `weekly(records, week)`. `week_days` takes an ISO week written exactly as `YYYY-Www` (four ASCII digits `0-9`, a hyphen, an upper-case W, two ASCII digits, nothing before or after, no trailing newline) and returns the seven UTC calendar days of that week as `"YYYY-MM-DD"` strings, Monday first; it raises `ValueError` for any other string and for a week number the year does not have. `weekly` returns the report for the records whose `day_of` timestamp falls in that week, as one string, these lines joined with `\\n` and ending with `\\n`:
+
+```
+# Week YYYY-Www
+(empty line)
+## Units
+(empty line)
+| unit | count |
+|---|---|
+| <unit> | <count> |          one row per entry of by_unit(records of the week), in that order
+(empty line)
+## Days
+(empty line)
+- YYYY-MM-DD: <count>        one line per day of the week, Monday first, 0 for a day without records
+(empty line)
+## Errors
+(empty line)
+- <stamp> <unit>: <MESSAGE>   one line per error record, at most 20
+- and <n> more                only when there are more than 20 error records, n = the rest
+```
+
+An error record is one whose `PRIORITY` field is present, all decimal digits, and at most 3. Error lines are ordered by timestamp ascending, ties by unit then by message; `<stamp>` is the record's timestamp as UTC `YYYY-MM-DDTHH:MM:SSZ` (microseconds dropped); `<unit>` is `_SYSTEMD_UNIT` or `-` without one. With no error records the section holds the single line `- none`. With no records at all the Units table has only its two header rows and every day shows 0.
+
+`obsreport.py` at the root, run as `python3 obsreport.py FILE YYYY-Www`: writes `weekly(journal.load(FILE), week)` to stdout and exits 0. Any other argument count prints `usage: obsreport.py FILE YYYY-Www` to stderr and exits 2; a week `week_days` rejects prints `error: ` and a description to stderr and exits 2 (checked before the file is read); a file that cannot be opened or read prints `error: ` and a description to stderr and exits 2; a file `journal.parse` rejects prints `error: ` and a description to stderr and exits 1. Nothing on stdout on an error.
+
+`test_report.py` (unittest, at least three test methods) covering `week_days`, the report text, and the command line.
+
+Do not modify any existing file. No other new files. `.factory/verify.sh` must be green.
+
+Scope: this ticket sits on work earlier tickets delivered. A file an earlier ticket delivered is changed only where this specification names it; every other file in the tree stays byte for byte as it is, and a change to one is a failure of this ticket even if the tests still pass."""

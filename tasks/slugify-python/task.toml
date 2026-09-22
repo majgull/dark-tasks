@@ -1,0 +1,6 @@
+id = "slugify-python"
+title = "slugify-python: make the failing test suite pass"
+class = "repair"
+lang = "python"
+may_edit = ["slugify.py"]
+spec = """`python3 -m unittest test_slugify` reports failures. Fix `slugify.py` so the whole suite passes. The docstring at the top of `slugify.py` is the contract for `slugify(text)`; implement exactly that. Do not edit `test_slugify.py` or add files; `.factory/verify.sh` must be green."""

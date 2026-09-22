@@ -1,0 +1,1 @@
+delete both old files (DELETE: internal/util/util.go, DELETE: internal/util/util_test.go)

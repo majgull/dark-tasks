@@ -1,0 +1,6 @@
+id = "rpn-go"
+title = "rpn-go: make the failing test suite pass"
+class = "repair"
+lang = "go"
+may_edit = ["rpn.go"]
+spec = """`go test ./...` reports failures. Fix `rpn.go` so the whole suite passes. The doc comment on `Eval` in `rpn.go` is the contract; implement exactly that. Do not edit `rpn_test.go`, `main.go` or add files; `go vet` and `.factory/verify.sh` must be green."""

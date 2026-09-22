@@ -1,0 +1,6 @@
+id = "snake-config-go"
+title = "snake-config-go: migrate JSON config keys from camelCase to snake_case"
+class = "mechanical"
+lang = "go"
+may_edit = ["config.go", "config.json"]
+spec = """The configuration file format changes from camelCase to snake_case keys. Update the JSON struct tags in `config.go` and the sample `config.json` so the keys are `listen_addr`, `max_items` and `log_level` (in place of `listenAddr`, `maxItems`, `logLevel`). Nothing else changes: same field names, same types, same values in the sample, no new files, and camelCase keys are no longer read. `config_test.go` stays as it is and must keep passing; `go vet` and `go test ./...` must stay green."""

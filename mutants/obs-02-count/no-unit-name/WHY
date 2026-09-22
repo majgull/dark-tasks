@@ -1,0 +1,1 @@
+a record without `_SYSTEMD_UNIT` counts under the unit name `"-"`

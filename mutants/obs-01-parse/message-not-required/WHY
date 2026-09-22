@@ -1,0 +1,1 @@
+Every record must carry `__REALTIME_TIMESTAMP` and `MESSAGE`

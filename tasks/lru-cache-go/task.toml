@@ -1,0 +1,15 @@
+id = "lru-cache-go"
+title = "lru-cache-go: a least-recently-used cache from a written spec"
+class = "additive"
+lang = "go"
+may_edit = []
+spec = """Add a new file `lru.go` in package main with an LRU cache of string keys and int values, and `lru_test.go` with `go test` tests for it. Add no other files and do not change main.go or any other existing file; `go vet` and `go test ./...` must stay green. Use only the standard library.
+
+    type LRU struct { /* your fields */ }
+    func NewLRU(capacity int) *LRU        // panics when capacity < 1
+    func (c *LRU) Get(key string) (int, bool)
+    func (c *LRU) Put(key string, value int)
+    func (c *LRU) Len() int
+    func (c *LRU) Keys() []string
+
+The cache holds at most `capacity` entries. `Get` returns the value and true for a key it holds, otherwise 0 and false; a hit makes that key the most recently used. `Put` stores the value for the key: an existing key is updated in place and becomes the most recently used; a new key is inserted as the most recently used and, when the cache already held `capacity` entries, the least recently used entry is evicted first. `Len` is the number of entries held. `Keys` returns the keys ordered from most recently used to least recently used (a fresh slice each call; empty, not nil, for an empty cache). Every operation must be O(1) amortised apart from `Keys`, which is O(n)."""

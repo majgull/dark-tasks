@@ -1,0 +1,16 @@
+id = "obs-02-count"
+title = "obs-02-count: counts per unit and per day, and the first command"
+class = "additive"
+lang = "python"
+after = "obs-01-parse"
+spec = """`journal.py` parses journal exports into records (dicts of field name to string, `__REALTIME_TIMESTAMP` as an int of microseconds since the epoch). Add the first report and the command line. Three new files, stdlib only:
+
+`counts.py` with three functions. `day_of(ts_us)` returns the UTC calendar day of a timestamp in microseconds as `"YYYY-MM-DD"` (UTC, never the local timezone). `by_unit(records)` returns a list of `(unit, count)` tuples, one per distinct `_SYSTEMD_UNIT` value, where a record without `_SYSTEMD_UNIT` counts under the unit name `"-"`; the list is sorted by count descending, ties by unit name ascending (plain string order). `by_day(records)` returns a list of `(day, count)` tuples, one per distinct `day_of(record["__REALTIME_TIMESTAMP"])`, sorted by day ascending. Both return `[]` for no records.
+
+`obs.py`, the command line, run as `python3 obs.py count FILE`. It loads FILE with `journal.load` and prints, to stdout, one line `<count>\\t<unit>` per entry of `by_unit` in that order, then one empty line, then one line `<count>\\t<day>` per entry of `by_day` in that order; exit status 0. If the file holds no records it prints nothing and exits 0. Errors: any other argument shape (no subcommand, a subcommand other than `count`, a missing or extra argument) prints `usage: obs.py count FILE` to stderr and exits 2; a file that cannot be opened or read prints `error: ` followed by a description to stderr and exits 2; a file `parse` rejects (ValueError) prints `error: ` followed by a description to stderr and exits 1. Nothing goes to stdout on an error.
+
+`test_counts.py` (unittest, at least three test methods) covering the sorting rules, the UTC day, and the command line's output and exit statuses.
+
+Do not modify `journal.py` or `test_journal.py`. No other new files. `.factory/verify.sh` must be green.
+
+Scope: this ticket sits on work earlier tickets delivered. A file an earlier ticket delivered is changed only where this specification names it; every other file in the tree stays byte for byte as it is, and a change to one is a failure of this ticket even if the tests still pass."""

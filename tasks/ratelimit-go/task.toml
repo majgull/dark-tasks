@@ -1,0 +1,13 @@
+id = "ratelimit-go"
+title = "ratelimit-go: a token bucket with an injected clock"
+class = "additive"
+lang = "go"
+may_edit = []
+spec = """Add a new file `bucket.go` in package main with a token-bucket rate limiter, and `bucket_test.go` with `go test` tests for it (use a fake clock, never time.Sleep). Add no other files and do not change main.go or any other existing file; `go vet` and `go test ./...` must stay green. Standard library only.
+
+    type Bucket struct { /* your fields */ }
+    func NewBucket(capacity int, perSecond float64, now func() time.Time) *Bucket
+    func (b *Bucket) Allow() bool
+    func (b *Bucket) Tokens() float64
+
+`NewBucket` panics when capacity < 1, perSecond <= 0 or now is nil. The bucket starts full (`capacity` tokens) at the time `now()` returns during `NewBucket`. Tokens accrue continuously: whenever the bucket is consulted it first adds `perSecond` × (seconds elapsed since it was last consulted, fractional) to its tokens, capped at `capacity`; a clock that went backwards adds nothing. `Allow` then returns true and removes one token when at least one token is present, else false. `Tokens` returns the token count after that refill, without taking any. So with capacity 2 and perSecond 1: two `Allow` calls at t=0 return true, a third returns false, and after 0.5 s `Tokens()` is 0.5 and `Allow()` is still false; after 1 s more `Allow()` is true again."""

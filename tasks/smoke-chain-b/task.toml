@@ -1,0 +1,11 @@
+id = "smoke-chain-b"
+title = "smoke-chain-b: the second step, which must start from the first step's delivery"
+class = "additive"
+lang = "python"
+after = "smoke-chain-a"
+may_edit = []
+spec = """The repo already has `hello.py`, which prints `hello, dark`. Add a second script `bye.py` at the repo root. Running `python3 bye.py` must print exactly one line to stdout:
+
+bye, dark
+
+and exit with status 0. The file is new; leave `hello.py` exactly as it is."""

@@ -1,0 +1,151 @@
+balloon: 16777216000
+ballooninfo:
+	actual: 16777216000
+	free_mem: 11077320704
+	last_update: 1788440639
+	major_page_faults: 1068
+	max_mem: 16777216000
+	mem_swapped_in: 0
+	mem_swapped_out: 0
+	minor_page_faults: 906545
+	total_mem: 15809523712
+blockstat:
+	efidisk0:
+		account_failed: 1
+		account_invalid: 1
+		failed_flush_operations: 0
+		failed_rd_operations: 0
+		failed_unmap_operations: 0
+		failed_wr_operations: 0
+		failed_zone_append_operations: 0
+		flush_operations: 0
+		flush_total_time_ns: 0
+		invalid_flush_operations: 0
+		invalid_rd_operations: 0
+		invalid_unmap_operations: 0
+		invalid_wr_operations: 0
+		invalid_zone_append_operations: 0
+		rd_bytes: 0
+		rd_merged: 0
+		rd_operations: 0
+		rd_total_time_ns: 0
+		timed_stats:
+		unmap_bytes: 0
+		unmap_merged: 0
+		unmap_operations: 0
+		unmap_total_time_ns: 0
+		wr_bytes: 0
+		wr_highest_offset: 124928
+		wr_merged: 0
+		wr_operations: 0
+		wr_total_time_ns: 0
+		zone_append_bytes: 0
+		zone_append_merged: 0
+		zone_append_operations: 0
+		zone_append_total_time_ns: 0
+	pflash0:
+		account_failed: 1
+		account_invalid: 1
+		failed_flush_operations: 0
+		failed_rd_operations: 0
+		failed_unmap_operations: 0
+		failed_wr_operations: 0
+		failed_zone_append_operations: 0
+		flush_operations: 0
+		flush_total_time_ns: 0
+		invalid_flush_operations: 0
+		invalid_rd_operations: 0
+		invalid_unmap_operations: 0
+		invalid_wr_operations: 0
+		invalid_zone_append_operations: 0
+		rd_bytes: 0
+		rd_merged: 0
+		rd_operations: 0
+		rd_total_time_ns: 0
+		timed_stats:
+		unmap_bytes: 0
+		unmap_merged: 0
+		unmap_operations: 0
+		unmap_total_time_ns: 0
+		wr_bytes: 0
+		wr_highest_offset: 0
+		wr_merged: 0
+		wr_operations: 0
+		wr_total_time_ns: 0
+		zone_append_bytes: 0
+		zone_append_merged: 0
+		zone_append_operations: 0
+		zone_append_total_time_ns: 0
+	scsi0:
+		account_failed: 1
+		account_invalid: 1
+		failed_flush_operations: 0
+		failed_rd_operations: 0
+		failed_unmap_operations: 0
+		failed_wr_operations: 0
+		failed_zone_append_operations: 0
+		flush_operations: 481
+		flush_total_time_ns: 5105766252
+		idle_time_ns: 1142703851
+		invalid_flush_operations: 0
+		invalid_rd_operations: 0
+		invalid_unmap_operations: 0
+		invalid_wr_operations: 0
+		invalid_zone_append_operations: 0
+		rd_bytes: 3712020480
+		rd_merged: 0
+		rd_operations: 19511
+		rd_total_time_ns: 19335485266
+		timed_stats:
+		unmap_bytes: 0
+		unmap_merged: 0
+		unmap_operations: 0
+		unmap_total_time_ns: 0
+		wr_bytes: 326019072
+		wr_highest_offset: 168633077760
+		wr_merged: 0
+		wr_operations: 7346
+		wr_total_time_ns: 1173075534
+		zone_append_bytes: 0
+		zone_append_merged: 0
+		zone_append_operations: 0
+		zone_append_total_time_ns: 0
+cpus: 8
+disk: 0
+diskread: 3712020480
+diskwrite: 326019072
+freemem: 11077320704
+maxdisk: 193273528320
+maxmem: 16777216000
+mem: 4732203008
+memhost: 16836828160
+name: dark-s1
+netin: 8326571
+netout: 176766
+nics:
+	tap101i0:
+		netin: 8326571
+		netout: 176766
+pid: 27001
+pressurecpufull: 0
+pressurecpusome: 0
+pressureiofull: 0
+pressureiosome: 0
+pressurememoryfull: 0
+pressurememorysome: 0
+proxmox-support:
+	backup-access-api: 1
+	backup-fleecing: 1
+	backup-max-workers: 1
+	pbs-dirty-bitmap: 1
+	pbs-dirty-bitmap-migration: 1
+	pbs-dirty-bitmap-savevm: 1
+	pbs-library-version: 2.0.1 (2b8ebba0cffecd479f296aaad82d8bec89355599)
+	pbs-masterkey: 1
+	query-bitmap-info: 1
+qmpstatus: running
+running-machine: pc-q35-10.1+pve0
+running-qemu: 10.1.2
+status: running
+uptime: 120
+vmid: 9551

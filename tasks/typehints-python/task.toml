@@ -1,0 +1,14 @@
+id = "typehints-python"
+title = "typehints-python: annotate every public function"
+class = "mechanical"
+lang = "python"
+may_edit = ["shapes.py"]
+spec = """Add type annotations to the five public functions in `shapes.py`, exactly these signatures (parameter names unchanged):
+
+    area_circle(r: float) -> float
+    area_rect(w: float, h: float) -> float
+    perimeter_rect(w: float, h: float) -> float
+    scale(points: list[tuple[float, float]], factor: float) -> list[tuple[float, float]]
+    describe(name: str, area: float) -> str
+
+Use the built-in generics as written (`list[...]`, `tuple[...]`), not `typing.List`/`typing.Tuple`. Change nothing else: no behaviour change, no reformatting, no new imports, no new files, and do not touch `test_shapes.py`. `.factory/verify.sh` must stay green."""

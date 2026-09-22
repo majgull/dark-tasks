@@ -1,0 +1,16 @@
+id = "wcl-python"
+title = "wcl-python: a wc-like line/word/byte counter from a written spec"
+class = "additive"
+lang = "python"
+may_edit = []
+spec = """Add `wcl.py` at the repo root (stdlib only) and `test_wcl.py` with unittest tests for it. Do not change any existing file.
+
+Usage: `python3 wcl.py [-l] [-w] [-c] FILE...`
+
+For every FILE, print one line: the selected counts separated by single spaces, then a space and the FILE name exactly as given on the command line. Counts: lines = the number of newline characters (a final line without a newline is not counted as a line); words = the number of whitespace-separated tokens (as `bytes.split()` gives); bytes = the size of the file in bytes. With no flags print all three in the order lines, words, bytes. With flags print only the selected counts, always in the order lines, words, bytes regardless of flag order. Flags may appear anywhere in the argument list.
+
+When more than one FILE argument is given, print a final line with the sums of the selected counts and the name `total`.
+
+A FILE that cannot be read prints `wcl: NAME: cannot read` to stderr (nothing to stdout for it), processing continues, and the exit status is 1 at the end (0 when every file was read). With no FILE arguments print `usage: wcl.py [-l] [-w] [-c] FILE...` to stderr and exit 2.
+
+Example, for a file a.txt containing `hello world\\nsecond line\\n`: `python3 wcl.py a.txt` prints `2 4 24 a.txt`; `python3 wcl.py -c -w a.txt` prints `4 24 a.txt`."""

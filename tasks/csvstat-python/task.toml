@@ -1,0 +1,18 @@
+id = "csvstat-python"
+title = "csvstat-python: per-column statistics of a CSV file"
+class = "additive"
+lang = "python"
+may_edit = []
+spec = """Add `csvstat.py` at the repo root (stdlib only; the `csv` module is fine) and `test_csvstat.py` with unittest tests for it. Do not change any existing file.
+
+Usage: `python3 csvstat.py FILE`
+
+FILE is a CSV file whose first row is the header. Print one line per header column, in header order. A cell is empty when it is the empty string; a row shorter than the header has empty cells for the missing columns; cells beyond the header are ignored. A column is numeric when it has at least one non-empty cell and every non-empty cell is accepted by Python's `float()`. For a numeric column print `NAME: count=N min=MIN max=MAX mean=MEAN` where N is the number of non-empty cells, MIN and MAX are the original cell text of the smallest and largest values (the first such cell on ties), and MEAN is the mean of the values formatted with two decimals (`f"{mean:.2f}"`). For any other column print `NAME: count=N distinct=K` where K is the number of distinct non-empty cell texts.
+
+Errors, to stderr with nothing on stdout: a FILE that cannot be read prints `csvstat: FILE: cannot read` and exits 1; an empty FILE (no header row) prints `csvstat: FILE: no header` and exits 1; any number of arguments other than one prints `usage: csvstat.py FILE` and exits 2. Exit 0 otherwise.
+
+Example, for a file containing `name,age,city\\nann,34,Bonn\\nbob,,Köln\\ncid,27.5,Bonn\\n`, the output is:
+
+    name: count=3 distinct=3
+    age: count=2 min=27.5 max=34 mean=30.75
+    city: count=3 distinct=2"""

@@ -1,0 +1,25 @@
+id = "vmreap-plan"
+title = "vmreap-plan: a reap plan for leftover factory VMs from qm output"
+class = "additive"
+lang = "python"
+spec = """The factory runs its executor and staging VMs on a Proxmox host as throwaway VMs named `dark-x<N>` (executor) and `dark-s<N>` (staging, N = a slot number). The runner destroys them after each run, but a runner that dies leaves them behind (a `dark-s2` was found running for an hour on 2026-09-03). Write the tool that turns the host's own command output into a reap plan. It never runs `qm` itself; it only prints the commands.
+
+Create `vmreap.py` (stdlib only) and `test_vmreap.py` (unittest, at least three test methods). Three functions and a command line:
+
+`parse_list(text)` parses the output of `qm list`: a header line whose first field is `VMID`, then one row per VM with exactly six whitespace-separated fields `VMID NAME STATUS MEM(MB) BOOTDISK(GB) PID` (Proxmox VM names contain no whitespace), for example:
+
+```
+      VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID
+       101 llm-server           running    16000            180.00 1578
+      9552 dark-s2              stopped    4096              16.00 0
+```
+
+It returns a list of dicts in file order with keys `vmid` (int), `name` (str), `status` (str), `mem_mb` (int), `bootdisk_gb` (float), `pid` (int). Blank lines are skipped. A missing or wrong header, a row without exactly six fields, or a non-numeric VMID, MEM, BOOTDISK or PID raises `ValueError`.
+
+`parse_status(text)` parses the output of `qm status <vmid> --verbose`: lines of the form `key: value`, where leading whitespace is stripped from the line first and the first `: ` splits key from value (top-level keys like `uptime`, `status`, `name`, and the indented block statistics such as `  rd_bytes: 123` alike, so that one yields the key `rd_bytes`). It returns a dict of str to str with one entry per such line, a later line with the same key overwriting the earlier; lines without `: ` are ignored.
+
+`plan(vms, statuses, max_age)` returns the list of command strings for the factory VMs among `vms`: a factory VM is one whose name matches the regular expression `^dark-[xs][0-9]+$` exactly (so `dark-x0`, `dark-s12`; not `darkroom`, `dark-x`, `dark-y1`). Any other VM is ignored whatever its state. For a factory VM whose status is `running`, `statuses[vmid]` is its `parse_status` dict and its `uptime` value (seconds, decimal digits) decides: uptime greater than or equal to `max_age` means the run that made it is long gone, and the plan gets `qm stop <vmid>` followed by `qm destroy <vmid> --purge`; a younger running VM is left alone. A factory VM in any other status gets `qm destroy <vmid> --purge` alone. Plan lines are grouped per VM in ascending VMID order. A running factory VM with no entry in `statuses`, or an entry without a digits-only `uptime`, raises `ValueError` (the tool never guesses an age).
+
+Command line: `python3 vmreap.py plan --list FILE --status-dir DIR [--max-age SECONDS]`. `FILE` holds `qm list` output; `DIR` holds one file per running factory VM named `<vmid>.txt` with its `qm status --verbose` output (files for other VMs may exist and are ignored); `--max-age` defaults to 3600. It prints the plan lines to stdout, one per line, nothing else on stdout, and one summary line to stderr: `vmreap: <F> factory VM(s), <R> to reap` where F is the number of factory VMs in the list and R the number of VMs that got plan lines. Exit status 0 when R is 0, 1 when R is greater than 0 (so a cron job can alert on it). Any other argument shape prints `usage: vmreap.py plan --list FILE --status-dir DIR [--max-age SECONDS]` to stderr and exits 2; a list file that cannot be read, a `ValueError` from parsing, a missing or unreadable status file for a running factory VM, or a non-integer `--max-age` prints `error: ` and a description to stderr and exits 2 with nothing on stdout.
+
+No other new files, no dependencies. `.factory/verify.sh` must be green."""

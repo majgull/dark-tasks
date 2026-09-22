@@ -1,0 +1,21 @@
+id = "jsonflat-python"
+title = "jsonflat-python: flatten a JSON document to path=value lines"
+class = "additive"
+lang = "python"
+may_edit = []
+spec = """Add `jsonflat.py` at the repo root (stdlib only) and `test_jsonflat.py` with unittest tests for it. Do not change any existing file.
+
+Usage: `python3 jsonflat.py FILE`
+
+Read the JSON document in FILE and print one line per leaf value, `PATH=VALUE`, lines sorted by PATH as plain strings. PATH: object keys joined with `.` (keys are used as they are, even when they contain dots or are empty); a list element appends `[i]` (zero-based) to its parent's path, so a top-level list has paths `[0]`, `[1]`, and `{"a": [1, {"b": 2}]}` gives `a[0]=1` and `a[1].b=2`. VALUE: a string is printed as is (no quotes, no escaping); a number as JSON prints it (`1`, `2.5`, `-3`); `true`, `false` and `null` as those words; an empty object as `{}` and an empty list as `[]` (both are leaves). Print nothing for an empty top-level object or list.
+
+Errors, all to stderr with nothing on stdout: a FILE that cannot be read or is not valid JSON prints `jsonflat: FILE: cannot read` and exits 1; a document whose top level is not an object or a list prints `jsonflat: FILE: not an object or array` and exits 1; any number of arguments other than one prints `usage: jsonflat.py FILE` and exits 2. Exit 0 otherwise.
+
+Example, for `{"name": "dark", "tags": ["a", "b"], "meta": {"ok": true, "n": null, "empty": {}}}`, the output is:
+
+    meta.empty={}
+    meta.n=null
+    meta.ok=true
+    name=dark
+    tags[0]=a
+    tags[1]=b"""

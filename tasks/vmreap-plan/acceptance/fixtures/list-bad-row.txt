@@ -1,0 +1,3 @@
+      VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID       
+       101 llm-server           running    16000            180.00 1578      
+      9553 dark-s3 running 4096 16.00

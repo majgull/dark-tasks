@@ -1,0 +1,1 @@
+the wrong number of arguments prints the usage line to stderr and exits 2

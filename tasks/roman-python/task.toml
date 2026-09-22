@@ -1,0 +1,6 @@
+id = "roman-python"
+title = "roman-python: make the failing test suite pass"
+class = "repair"
+lang = "python"
+may_edit = ["roman.py"]
+spec = """`python3 -m unittest test_roman` reports failures. Fix `roman.py` so the whole suite passes. The docstrings in `roman.py` are the contract for `to_roman(n)` and `from_roman(s)`; implement exactly that. Do not edit `test_roman.py` or add files; `.factory/verify.sh` must be green."""
