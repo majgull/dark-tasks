@@ -11,4 +11,4 @@ spec = """Add type annotations to the five public functions in `shapes.py`, exac
     scale(points: list[tuple[float, float]], factor: float) -> list[tuple[float, float]]
     describe(name: str, area: float) -> str
 
-Use the built-in generics as written (`list[...]`, `tuple[...]`), not `typing.List`/`typing.Tuple`. Change nothing else: no behaviour change, no reformatting, no new imports, no new files, and do not touch `test_shapes.py`. `.factory/verify.sh` must stay green."""
+Use the built-in generics as written (`list[...]`, `tuple[...]`), not `typing.List`/`typing.Tuple`. Change nothing else: no behaviour change, no reformatting, no new imports, no new files, and do not touch `test_shapes.py`. `.dark/verify.sh` must stay green."""

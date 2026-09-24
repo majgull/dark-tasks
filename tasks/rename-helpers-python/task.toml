@@ -3,4 +3,4 @@ title = "rename-helpers-python: rename a module and update every import"
 class = "mechanical"
 lang = "python"
 may_edit = ["app.py", "test_app.py", "utils.py"]
-spec = """Rename the module `utils.py` to `helpers.py`: create `helpers.py` with exactly the content of `utils.py`, delete `utils.py` (a `DELETE: utils.py` line), and update every import in `app.py` and `test_app.py` so they use `helpers` instead of `utils` (both the import line and every `utils.` reference). Change nothing else: no behaviour change, no reformatting, no new files besides `helpers.py`. `.factory/verify.sh` (which runs test_app.py) must stay green."""
+spec = """Rename the module `utils.py` to `helpers.py`: create `helpers.py` with exactly the content of `utils.py`, delete `utils.py` (a `DELETE: utils.py` line), and update every import in `app.py` and `test_app.py` so they use `helpers` instead of `utils` (both the import line and every `utils.` reference). Change nothing else: no behaviour change, no reformatting, no new files besides `helpers.py`. `.dark/verify.sh` (which runs test_app.py) must stay green."""

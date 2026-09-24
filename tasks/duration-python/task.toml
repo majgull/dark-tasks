@@ -3,4 +3,4 @@ title = "duration-python: make the failing test suite pass"
 class = "repair"
 lang = "python"
 may_edit = ["duration.py"]
-spec = """`python3 -m unittest test_duration` reports failures. Fix `duration.py` so the whole suite passes. The docstring in `duration.py` is the contract for `parse_duration(text)`; implement exactly that. Do not edit `test_duration.py` or add files; `.factory/verify.sh` must be green."""
+spec = """`python3 -m unittest test_duration` reports failures. Fix `duration.py` so the whole suite passes. The docstring in `duration.py` is the contract for `parse_duration(text)`; implement exactly that. Do not edit `test_duration.py` or add files; `.dark/verify.sh` must be green."""

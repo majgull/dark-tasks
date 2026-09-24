@@ -3,4 +3,4 @@ title = "median-go: make the failing test suite pass"
 class = "repair"
 lang = "go"
 may_edit = ["stats.go"]
-spec = """`go test ./...` reports failures. Fix `stats.go` so the whole suite passes. The doc comments in `stats.go` are the contract for `Median` and `Percentile`; implement exactly that. Do not edit `stats_test.go`, `main.go` or add files; `go vet` and `.factory/verify.sh` must be green."""
+spec = """`go test ./...` reports failures. Fix `stats.go` so the whole suite passes. The doc comments in `stats.go` are the contract for `Median` and `Percentile`; implement exactly that. Do not edit `stats_test.go`, `main.go` or add files; `go vet` and `.dark/verify.sh` must be green."""

@@ -11,6 +11,6 @@ spec = """`journal.py` parses journal exports into records (dicts of field name 
 
 `test_counts.py` (unittest, at least three test methods) covering the sorting rules, the UTC day, and the command line's output and exit statuses.
 
-Do not modify `journal.py` or `test_journal.py`. No other new files. `.factory/verify.sh` must be green.
+Do not modify `journal.py` or `test_journal.py`. No other new files. `.dark/verify.sh` must be green.
 
 Scope: this ticket sits on work earlier tickets delivered. A file an earlier ticket delivered is changed only where this specification names it; every other file in the tree stays byte for byte as it is, and a change to one is a failure of this ticket even if the tests still pass."""

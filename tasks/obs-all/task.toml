@@ -6,7 +6,7 @@ spec = """`obs` is a small observer that reads systemd journal exports and repor
 
 The requirements are given in six parts, written as the six tickets that would have built it one at a time. Only the finished tree is judged, and you choose how to get there: you may write the final layout directly, and you never have to reproduce an intermediate state. Where a later part changes what an earlier part asked for, the later part wins, and the earlier part's wording about where a file sits or which files may be added describes that part's moment, not the finished tree. Two things are settled by the later parts and are repeated here so they are not missed: the finished tree keeps its modules in the package `observer/` as Part 3 describes, and every function of `observer/journal.py`, `observer/counts.py` and `observer/report.py` carries the annotations Part 6 specifies.
 
-`.factory/verify.sh` must be green, and `python3 -m unittest test_journal test_counts test_counts_tz test_report` must be green. Standard library only. Do not edit `.factory/verify.sh`.
+`.dark/verify.sh` must be green, and `python3 -m unittest test_journal test_counts test_counts_tz test_report` must be green. Standard library only. Do not edit `.dark/verify.sh`.
 
 ## Part 1 (obs-01-parse)
 
@@ -20,7 +20,7 @@ Create `journal.py` (stdlib only) with two functions, and `test_journal.py` (uni
 
 `load(path)` opens the file at `path` as UTF-8 text and returns `parse` of its contents.
 
-No other new files, no dependencies. `.factory/verify.sh` (compiles every `.py` at the root and runs every `test_*.py`) must be green.
+No other new files, no dependencies. `.dark/verify.sh` (compiles every `.py` at the root and runs every `test_*.py`) must be green.
 
 ## Part 2 (obs-02-count)
 
@@ -32,7 +32,7 @@ No other new files, no dependencies. `.factory/verify.sh` (compiles every `.py` 
 
 `test_counts.py` (unittest, at least three test methods) covering the sorting rules, the UTC day, and the command line's output and exit statuses.
 
-Do not modify `journal.py` or `test_journal.py`. No other new files. `.factory/verify.sh` must be green.
+Do not modify `journal.py` or `test_journal.py`. No other new files. `.dark/verify.sh` must be green.
 
 ## Part 3 (obs-03-package)
 
@@ -40,13 +40,13 @@ The library modules `journal.py` and `counts.py` sit at the repository root next
 
 Create the package `observer/` with an empty `observer/__init__.py`, `observer/journal.py` holding exactly the current contents of `journal.py`, and `observer/counts.py` holding exactly the current contents of `counts.py` (the code moves unchanged: same functions, same bodies, same docstrings, no reformatting). Delete `journal.py` and `counts.py` from the root. Update `obs.py`, `test_journal.py` and `test_counts.py` so every import of the moved modules goes through the package (`observer.journal`, `observer.counts`), changing nothing else in them.
 
-No behaviour change: `python3 obs.py count FILE` prints exactly what it prints today for every FILE, with the same exit statuses, and `python3 -m unittest test_journal test_counts` stays green. After the change the root holds exactly `obs.py`, `test_journal.py` and `test_counts.py` as `.py` files and `observer/` holds exactly `__init__.py`, `journal.py` and `counts.py`. No other new or changed files. `.factory/verify.sh` must be green.
+No behaviour change: `python3 obs.py count FILE` prints exactly what it prints today for every FILE, with the same exit statuses, and `python3 -m unittest test_journal test_counts` stays green. After the change the root holds exactly `obs.py`, `test_journal.py` and `test_counts.py` as `.py` files and `observer/` holds exactly `__init__.py`, `journal.py` and `counts.py`. No other new or changed files. `.dark/verify.sh` must be green.
 
 ## Part 4 (obs-04-tzfix)
 
 A user reported that `python3 obs.py count FILE` gives different per-day counts on two hosts fed the same export (a contributor's rewrite of `observer/counts.py`, now in the tree, uses the host's local time). The regression test `test_counts_tz.py` (new, do not edit it) reproduces it and fails: it runs `observer.counts` under several `TZ` settings and expects the same UTC days every time.
 
-Fix `observer/counts.py` so the whole suite passes: `python3 -m unittest test_journal test_counts test_counts_tz` green, and `.factory/verify.sh` green. The docstrings in `observer/counts.py` are the contract (`day_of` returns the UTC calendar day; `by_unit` and `by_day` keep their orderings). Change nothing else: no other file edited, no file added or removed, and the output of `python3 obs.py count FILE` for any export is unchanged apart from days that the bug placed wrongly.
+Fix `observer/counts.py` so the whole suite passes: `python3 -m unittest test_journal test_counts test_counts_tz` green, and `.dark/verify.sh` green. The docstrings in `observer/counts.py` are the contract (`day_of` returns the UTC calendar day; `by_unit` and `by_day` keep their orderings). Change nothing else: no other file edited, no file added or removed, and the output of `python3 obs.py count FILE` for any export is unchanged apart from days that the bug placed wrongly.
 
 ## Part 5 (obs-05-report)
 
@@ -79,10 +79,10 @@ An error record is one whose `PRIORITY` field is present, all decimal digits, an
 
 `test_report.py` (unittest, at least three test methods) covering `week_days`, the report text, and the command line.
 
-Do not modify any existing file. No other new files. `.factory/verify.sh` must be green.
+Do not modify any existing file. No other new files. `.dark/verify.sh` must be green.
 
 ## Part 6 (obs-06-typehints)
 
 Add type hints to the three library modules `observer/journal.py`, `observer/counts.py` and `observer/report.py`: every function defined at module level in them (public and `_private` alike) gets an annotation on every parameter and on its return value, written with the builtin generics (`list[...]`, `dict[...]`, `tuple[...]`, `X | Y`), with no `typing` import and no `from __future__ import annotations`. A journal record is `dict[str, str | int]`; a timestamp is `int`; a day, a week and a unit are `str`. Exactly these signatures for the public functions: `parse(text: str) -> list[dict[str, str | int]]`, `load(path: str) -> list[dict[str, str | int]]`, `day_of(ts_us: int) -> str`, `by_unit(records: list[dict[str, str | int]]) -> list[tuple[str, int]]`, `by_day(records: list[dict[str, str | int]]) -> list[tuple[str, int]]`, `week_days(week: str) -> list[str]`, `weekly(records: list[dict[str, str | int]], week: str) -> str`; a `_private` helper gets the annotations its use implies.
 
-Nothing else changes: function bodies, names, default values, docstrings, module-level constants and imports stay exactly as they are (a lambda or a nested function gets no annotation), `python3 obs.py count FILE` and `python3 obsreport.py FILE YYYY-Www` print exactly what they print today with the same exit statuses, every test stays green, and no file other than the three named is added, removed or changed. `.factory/verify.sh` must be green."""
+Nothing else changes: function bodies, names, default values, docstrings, module-level constants and imports stay exactly as they are (a lambda or a nested function gets no annotation), `python3 obs.py count FILE` and `python3 obsreport.py FILE YYYY-Www` print exactly what they print today with the same exit statuses, every test stays green, and no file other than the three named is added, removed or changed. `.dark/verify.sh` must be green."""

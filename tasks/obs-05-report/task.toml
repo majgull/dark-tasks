@@ -32,6 +32,6 @@ An error record is one whose `PRIORITY` field is present, all decimal digits, an
 
 `test_report.py` (unittest, at least three test methods) covering `week_days`, the report text, and the command line.
 
-Do not modify any existing file. No other new files. `.factory/verify.sh` must be green.
+Do not modify any existing file. No other new files. `.dark/verify.sh` must be green.
 
 Scope: this ticket sits on work earlier tickets delivered. A file an earlier ticket delivered is changed only where this specification names it; every other file in the tree stays byte for byte as it is, and a change to one is a failure of this ticket even if the tests still pass."""

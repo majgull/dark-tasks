@@ -12,4 +12,4 @@ Create `journal.py` (stdlib only) with two functions, and `test_journal.py` (uni
 
 `load(path)` opens the file at `path` as UTF-8 text and returns `parse` of its contents.
 
-No other new files, no dependencies. `.factory/verify.sh` (compiles every `.py` at the root and runs every `test_*.py`) must be green."""
+No other new files, no dependencies. `.dark/verify.sh` (compiles every `.py` at the root and runs every `test_*.py`) must be green."""
