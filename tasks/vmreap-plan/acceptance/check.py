@@ -1,4 +1,4 @@
-"""vmreap-plan: hidden acceptance on real qm output shapes (cpu-host, 2026-09-03)."""
+"""vmreap-plan: hidden acceptance on real qm output shapes."""
 
 import os
 import subprocess
@@ -27,7 +27,7 @@ def fx(name):
 
 
 STATUS_DIR = fx("status")
-PLAN = "qm stop 9500\nqm destroy 9500 --purge\nqm stop 9503\nqm destroy 9503 --purge\nqm destroy 9552 --purge\n"
+PLAN = "qm stop 110\nqm destroy 110 --purge\nqm stop 111\nqm destroy 111 --purge\nqm destroy 113 --purge\n"
 
 pyfiles = sorted(f for f in os.listdir(ROOT) if f.endswith(".py"))
 chk("files", pyfiles == ["test_vmreap.py", "vmreap.py"], pyfiles)
@@ -38,9 +38,9 @@ chk("visible-tests", r.returncode == 0, (r.stderr or r.stdout)[-300:])
 rc, out, err = run("plan", "--list", fx("list.txt"), "--status-dir", STATUS_DIR)
 chk("plan-default", (rc, out, err) == (1, PLAN, "vmreap: 4 factory VM(s), 3 to reap\n"), f"rc={rc} out={out!r} err={err!r}")
 rc, out, err = run("plan", "--list", fx("list.txt"), "--status-dir", STATUS_DIR, "--max-age", "5001")
-chk("plan-max-age-high", (rc, out, err) == (1, "qm destroy 9552 --purge\n", "vmreap: 4 factory VM(s), 1 to reap\n"), f"rc={rc} out={out!r} err={err!r}")
+chk("plan-max-age-high", (rc, out, err) == (1, "qm destroy 113 --purge\n", "vmreap: 4 factory VM(s), 1 to reap\n"), f"rc={rc} out={out!r} err={err!r}")
 rc, out, err = run("plan", "--max-age", "100", "--status-dir", STATUS_DIR, "--list", fx("list.txt"))
-chk("plan-max-age-low-any-order", (rc, out, err) == (1, "qm stop 9500\nqm destroy 9500 --purge\nqm stop 9503\nqm destroy 9503 --purge\nqm stop 9551\nqm destroy 9551 --purge\nqm destroy 9552 --purge\n",
+chk("plan-max-age-low-any-order", (rc, out, err) == (1, "qm stop 110\nqm destroy 110 --purge\nqm stop 111\nqm destroy 111 --purge\nqm stop 112\nqm destroy 112 --purge\nqm destroy 113 --purge\n",
                                                     "vmreap: 4 factory VM(s), 4 to reap\n"), f"rc={rc} out={out!r} err={err!r}")
 rc, out, err = run("plan", "--list", fx("list-empty.txt"), "--status-dir", STATUS_DIR)
 chk("plan-empty", (rc, out, err) == (0, "", "vmreap: 0 factory VM(s), 0 to reap\n"), f"rc={rc} out={out!r} err={err!r}")
@@ -66,12 +66,12 @@ try:
     from vmreap import parse_list, parse_status, plan
     real = open(fx("list.txt")).read()
     vms = parse_list(real)
-    chk("api-parse-list", [v["vmid"] for v in vms] == [100, 101, 102, 120, 121, 122, 9000, 9001, 9503, 9500, 9551, 9552]
-        and vms[1] == {"vmid": 101, "name": "llm-server", "status": "running", "mem_mb": 16000, "bootdisk_gb": 180.0, "pid": 1578}
-        and vms[6]["name"] == "factory-agent-template", vms[:2])
+    chk("api-parse-list", [v["vmid"] for v in vms] == [100, 101, 102, 120, 121, 122, 103, 104, 111, 110, 112, 113]
+        and vms[1] == {"vmid": 101, "name": "model-server", "status": "running", "mem_mb": 16000, "bootdisk_gb": 180.0, "pid": 4242}
+        and vms[6]["name"] == "agent-1", vms[:2])
     chk("api-parse-list-blank-lines", parse_list("\n" + real + "\n\n") == vms)
     bad = 0
-    for text in ("", "NAME VMID\n", real + "      9553 dark-s3 running 4096 16.00\n", real.replace("1578", "15x8"), real.replace("16000", "16k")):
+    for text in ("", "NAME VMID\n", real + "      115 dark-s3 running 4096 16.00\n", real.replace("4242", "42x2"), real.replace("16000", "16k")):
         try:
             parse_list(text)
             bad += 1
@@ -82,16 +82,16 @@ try:
             print(f"  raised {type(e).__name__}")
     chk("api-parse-list-rejects", bad == 0, bad)
     st = parse_status(open(os.path.join(STATUS_DIR, "101.txt")).read())
-    chk("api-parse-status-real", st.get("uptime") == "3585" and st.get("status") == "running" and st.get("name") == "llm-server" and st.get("vmid") == "101", st.get("uptime"))
+    chk("api-parse-status-real", st.get("uptime") == "3585" and st.get("status") == "running" and st.get("name") == "model-server" and st.get("vmid") == "101", st.get("uptime"))
     chk("api-parse-status-loose", parse_status("no colon here\nk: v: w\n  rd_bytes: 5\nk: z\n") == {"k": "z", "rd_bytes": "5"})
-    sts = {9500: {"uptime": "5000"}, 9503: {"uptime": "3600"}, 9551: {"uptime": "120"}}
-    chk("api-plan", plan(vms, sts, 3600) == PLAN.splitlines() and plan(vms, sts, 3601) == ["qm stop 9500", "qm destroy 9500 --purge", "qm destroy 9552 --purge"])
+    sts = {110: {"uptime": "5000"}, 111: {"uptime": "3600"}, 112: {"uptime": "120"}}
+    chk("api-plan", plan(vms, sts, 3600) == PLAN.splitlines() and plan(vms, sts, 3601) == ["qm stop 110", "qm destroy 110 --purge", "qm destroy 113 --purge"])
     chk("api-plan-ignores-others", plan([{"vmid": 1, "name": "darkroom", "status": "stopped", "mem_mb": 1, "bootdisk_gb": 1.0, "pid": 0},
                                          {"vmid": 2, "name": "dark-x", "status": "stopped", "mem_mb": 1, "bootdisk_gb": 1.0, "pid": 0},
                                          {"vmid": 3, "name": "dark-y1", "status": "running", "mem_mb": 1, "bootdisk_gb": 1.0, "pid": 0},
                                          {"vmid": 4, "name": "dark-s7", "status": "paused", "mem_mb": 1, "bootdisk_gb": 1.0, "pid": 0}], {}, 0) == ["qm destroy 4 --purge"])
     bad = 0
-    for sts2 in ({}, {9500: {}, 9503: sts[9503], 9551: sts[9551]}, {9500: {"uptime": "-1"}, 9503: sts[9503], 9551: sts[9551]}):
+    for sts2 in ({}, {110: {}, 111: sts[111], 112: sts[112]}, {110: {"uptime": "-1"}, 111: sts[111], 112: sts[112]}):
         try:
             plan(vms, sts2, 3600)
             bad += 1

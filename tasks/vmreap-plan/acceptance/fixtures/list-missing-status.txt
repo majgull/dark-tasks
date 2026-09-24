@@ -1,2 +1,2 @@
       VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID       
-      9560 dark-s10             running    4096              16.00 28000     
+       114 dark-s10             running    4096              16.00 6464      

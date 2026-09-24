@@ -14,6 +14,16 @@ mutants/<id>/<name>/      a solution broken on purpose; every mutant must fail a
 
 The model sees the language template, `start/` and `spec`. Nothing else. `may_edit` is the only way an existing file may be rewritten, and additive tasks grant none. A task may follow another (`after = "<id>"`): `obs-01-parse` to `obs-06-typehints` build one product over six steps, and `obs-all` is the same product from one specification.
 
+## Terms
+
+- **hidden acceptance**: a task's `acceptance/` directory. The model never sees it. It prints one `CHECK <name> ok|fail` line per check and exits 0 only when every check passes.
+- **staging VM**: the fresh machine the hidden acceptance runs in. It holds the language template with the task's `start/` files laid over it, and nothing the model may not see.
+- **acceptance set**: the acceptance files, unpacked at `.acceptance/` in the working tree when the acceptance runs.
+- **oracle**: the reference solution under a task's `oracle/`, run only to check that the hidden acceptance passes a correct solution and rejects the starting tree.
+- **mutant**: a deliberately broken solution under `mutants/<id>/<name>/`, which must fail at least one hidden check.
+- **start overlay**: the files under a task's `start/`, laid over the language template before a run. A task with no `start/` starts from the template alone.
+- **run record**: the name a benchmark run stores for this task set, `acceptance-v4` at tag `v1.0`.
+
 ## Checking the set
 
 From a checkout of `dark`, with this repository beside it:

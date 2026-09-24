@@ -41,7 +41,7 @@ n=$(find . -name '*.go' -not -path './.git/*' | wc -l)
 if [ "$n" = 3 ]; then echo "CHECK no-extra-files ok"; else echo "CHECK no-extra-files fail ($n .go files)"; fail=1; fi
 if go vet ./... >/dev/null 2>&1; then echo "CHECK vet ok"; else echo "CHECK vet fail"; fail=1; fi
 if go test ./... >/tmp/acc.log 2>&1; then echo "CHECK tests ok"; else echo "CHECK tests fail"; tail -5 /tmp/acc.log; fail=1; fi
-want=$(printf 'krad\nDFR')
+want=$(printf 'krad\nDR')
 got=$(go run . 2>/dev/null)
 if [ "$got" = "$want" ]; then echo "CHECK run-output ok"; else echo "CHECK run-output fail (got: $got)"; fail=1; fi
 exit $fail

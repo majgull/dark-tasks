@@ -1,2 +1,2 @@
 NAME VMID
-       101 llm-server           running    16000            180.00 1578      
+       101 model-server         running    16000            180.00 4242      

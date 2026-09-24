@@ -119,14 +119,14 @@ maxdisk: 193273528320
 maxmem: 16777216000
 mem: 4732203008
 memhost: 16836828160
-name: dark-s1
+name: dark-x3
 netin: 8326571
 netout: 176766
 nics:
 	tap101i0:
 		netin: 8326571
 		netout: 176766
-pid: 27001
+pid: 6262
 pressurecpufull: 0
 pressurecpusome: 0
 pressureiofull: 0
@@ -147,5 +147,5 @@ qmpstatus: running
 running-machine: pc-q35-10.1+pve0
 running-qemu: 10.1.2
 status: running
-uptime: 120
-vmid: 9551
+uptime: 3600
+vmid: 111

@@ -1,13 +1,13 @@
       VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID       
-       100 gaming-bazzite-ub    stopped    30000             80.00 0         
-       101 llm-server           running    16000            180.00 1578      
-       102 gaming-bazzite       stopped    24000            100.00 0         
-       120 darkroom             running    2048              16.00 3001      
+       100 host-a               stopped    30000             80.00 0         
+       101 model-server         running    16000            180.00 4242      
+       102 host-b               stopped    24000            100.00 0         
+       120 darkroom             running    2048              16.00 4141      
        121 dark-x               stopped    2048              16.00 0         
        122 dark-y1              stopped    2048              16.00 0         
-      9000 factory-agent-template stopped    4096              16.00 0         
-      9001 factory-agent-go     stopped    4096              16.00 0         
-      9503 dark-x3              running    4096              16.00 27100     
-      9500 dark-x0              running    4096              16.00 26146     
-      9551 dark-s1              running    4096              16.00 27001     
-      9552 dark-s2              stopped    4096              16.00 0         
+       103 agent-1              stopped    4096              16.00 0         
+       104 agent-2              stopped    4096              16.00 0         
+       111 dark-x3              running    4096              16.00 6262      
+       110 dark-x0              running    4096              16.00 6161      
+       112 dark-s1              running    4096              16.00 6363      
+       113 dark-s2              stopped    4096              16.00 0         

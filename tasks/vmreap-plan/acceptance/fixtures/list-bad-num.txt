@@ -1,2 +1,2 @@
       VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID       
-       101 llm-server           running    16000            180.00 15x8      
+       101 model-server         running    16000            180.00 15x8      

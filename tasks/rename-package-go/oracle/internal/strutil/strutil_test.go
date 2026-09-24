@@ -9,7 +9,7 @@ func TestReverse(t *testing.T) {
 }
 
 func TestInitials(t *testing.T) {
-	if got := Initials("dark factory runner"); got != "DFR" {
+	if got := Initials("dark runner"); got != "DR" {
 		t.Fatalf("got %q", got)
 	}
 }

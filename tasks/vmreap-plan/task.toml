@@ -2,7 +2,7 @@ id = "vmreap-plan"
 title = "vmreap-plan: a reap plan for leftover factory VMs from qm output"
 class = "additive"
 lang = "python"
-spec = """The factory runs its executor and staging VMs on a Proxmox host as throwaway VMs named `dark-x<N>` (executor) and `dark-s<N>` (staging, N = a slot number). The runner destroys them after each run, but a runner that dies leaves them behind (a `dark-s2` was found running for an hour on 2026-09-03). Write the tool that turns the host's own command output into a reap plan. It never runs `qm` itself; it only prints the commands.
+spec = """The factory runs its executor and staging VMs on a Proxmox host as throwaway VMs named `dark-x<N>` (executor) and `dark-s<N>` (staging, N = a slot number). The runner destroys them after each run, but a runner that dies leaves them behind. Write the tool that turns the host's own command output into a reap plan. It never runs `qm` itself; it only prints the commands.
 
 Create `vmreap.py` (stdlib only) and `test_vmreap.py` (unittest, at least three test methods). Three functions and a command line:
 
@@ -10,8 +10,8 @@ Create `vmreap.py` (stdlib only) and `test_vmreap.py` (unittest, at least three 
 
 ```
       VMID NAME                 STATUS     MEM(MB)    BOOTDISK(GB) PID
-       101 llm-server           running    16000            180.00 1578
-      9552 dark-s2              stopped    4096              16.00 0
+       101 model-server         running    16000            180.00 4242
+       113 dark-s2              stopped    4096              16.00 0
 ```
 
 It returns a list of dicts in file order with keys `vmid` (int), `name` (str), `status` (str), `mem_mb` (int), `bootdisk_gb` (float), `pid` (int). Blank lines are skipped. A missing or wrong header, a row without exactly six fields, or a non-numeric VMID, MEM, BOOTDISK or PID raises `ValueError`.

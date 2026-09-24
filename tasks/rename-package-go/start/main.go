@@ -8,5 +8,5 @@ import (
 
 func main() {
 	fmt.Println(util.Reverse("dark"))
-	fmt.Println(util.Initials("dark factory runner"))
+	fmt.Println(util.Initials("dark runner"))
 }

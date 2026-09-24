@@ -119,14 +119,14 @@ maxdisk: 193273528320
 maxmem: 16777216000
 mem: 4732203008
 memhost: 16836828160
-name: llm-server
+name: model-server
 netin: 8326571
 netout: 176766
 nics:
 	tap101i0:
 		netin: 8326571
 		netout: 176766
-pid: 1578
+pid: 4242
 pressurecpufull: 0
 pressurecpusome: 0
 pressureiofull: 0
