@@ -1,10 +1,9 @@
 # Changelog
 
 All notable changes to this repository are recorded here. A version names a
-tagged release: `v1.0` is the first release, and `v1.1` is being prepared and
-not yet tagged.
+tagged release: `v1.0` is the first release.
 
-## v1.1 (unreleased)
+## v1.1 (2026-09-24)
 
 - The task contract path in every specification is now `.dark/verify.sh` (the
   script at the root of a task's working tree that checks formatting, the build
